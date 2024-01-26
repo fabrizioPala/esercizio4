@@ -1,14 +1,14 @@
-import { Clock } from "./Clock";
-import { Counter } from "./Counter";
-import { InteractiveWelcome } from "./InteractiveWelcome";
 import { Login } from "./Login";
-import { MouseClicker } from "./MouseClicker";
 
+
+function handleLogin(logindata){
+ console.log(logindata)
+}
 export function App() {
     return (
         <div>
            
-           <Login/>
+           <Login onLogin={handleLogin}/>
         </div>
         
     );

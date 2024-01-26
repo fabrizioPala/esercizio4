@@ -1,50 +1,61 @@
-//Create a Login component containing three inputs: a username input, 
-//a password input and a remember checkbox. 
+import React, { useState } from "react"; 
 
-import React, { useState } from "react"
+let divStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    border: "4px solid black",
+    backgroundColor: "blue",
+    height: "300px",
+    width: "300px",
+    padding: "30px"
+};
 
-let divStyle={
+export function Login({ onLogin }) {
+    const [data, setData] = useState({ 
+        username: "",                   
+        password: "",
+        checked: false
+    });
 
-    display:"flex",
-    flexDirection:"column",
-    justifyContent:"flex-end",
-    border :"4px solid black",
-    backgroundColor:"blue",
-    height:"300px",
-    width:"300px",
-    padding:"30px"
-}
+    const handleData = (e) => {
+        const { name, type, value, checked } = e.target;
+        setData((prevData) => ({
+            ...prevData,
+            [name]: type === "checkbox" ? checked : value//se il tipo di checked è uguale a checkbox allora la checkk sarà spntata in base al valore che noi diamo ()altrimenti il [name]sarà uguale a value
+        }));
+    };
 
-export function Login(){
-    const[userName,setUsername]=useState("");
-    const [password,setPassword]=useState("");
-    const [check,setCheck]=useState(false);
+    const handleSubmit = () => {
+        onLogin(data);
+    };
 
-
-    function handleUserName(e){
-        setUsername(e.target.value);
-    }
-    function handlePassword(e){
-        setPassword(e.target.value)
-    }
-    function handleCheck(e){
-      setCheck( e.target.checked)
-    }
-    function handleSubmit(){
-        console.log(userName)
-        console.log(password)
-        console.log(check)
-
-    }
     return (
         <>
-        <div style={divStyle}>
-            <input value={userName}onChange={handleUserName} type="text" />
-            <input value={password}onChange={handlePassword} type="password" />
-            <input value={check}onChange={handleCheck}type="checkbox" />
-            <button onClick={handleSubmit}>Submit</button>
-        </div>
-       
+            <div style={divStyle}>
+                <input
+                    name="username"
+                    value={data.username}
+                    onChange={handleData}
+                    type="text"
+                />
+                <input
+                    name="password"
+                    value={data.password}
+                    onChange={handleData}
+                    type="password"
+                />
+                <input
+                    name="checked"
+                    checked={data.checked}
+                    onChange={handleData}
+                    type="checkbox"
+                />
+                <button onClick={handleSubmit} disabled={data.username === "" || data.password === ""}>
+                    Submit
+                </button>
+            </div>
         </>
-    )
+    );
 }
+
