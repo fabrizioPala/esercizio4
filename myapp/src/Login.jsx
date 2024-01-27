@@ -29,6 +29,15 @@ export function Login({ onLogin }) {
     const handleSubmit = () => {
         onLogin(data);
     };
+    function handleReset(){
+        setData({
+            username:"",
+            password:"",
+            checked:false
+                })
+    
+
+    }
 
     return (
         <>
@@ -45,15 +54,20 @@ export function Login({ onLogin }) {
                     onChange={handleData}
                     type="password"
                 />
+                <label>Rimani collegato
                 <input
                     name="checked"
                     checked={data.checked}
                     onChange={handleData}
                     type="checkbox"
                 />
+                </label>
+                
                 <button onClick={handleSubmit} disabled={data.username === "" || data.password === ""}>
                     Submit
                 </button>
+                <button onClick={handleReset}>Reset</button>
+
             </div>
         </>
     );
